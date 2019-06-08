@@ -11,7 +11,6 @@ vector<edge> edgeList;
 int  totalNodes; // assign this too
 int src, snk; // assign those
 
-int c1, c2;
 
 void addAugEdge(int u, int v, int c, int cst) // long long cap?
 {
