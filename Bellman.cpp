@@ -32,3 +32,39 @@ bool bellman(int src)
     }
     return 0;
 }
+
+
+
+
+int dist[202];
+bool inQ[202];
+int n;
+
+void bellman(int src)
+{
+    clr(dist, 0x7F);
+    clr(inQ, 0);
+
+    queue<int> q;
+    q.push(src);
+    dist[src] = 0;
+    inQ[0] = 1;
+
+    for (int cnt = 0; cnt < n; ++cnt)
+    {
+        int size = sz(q);
+        while(size--)
+        {
+            int u = q.front();
+            inQ[u] = 0;
+            q.pop();
+            for (auto v : adj[u])
+            {
+                // relax;
+            }
+        }
+        if (!sz(q))
+            break;
+        if (cnt == n - 1 && sz(q)); // Negative Cycle, nth iteration and still something got relaxed
+    }
+}

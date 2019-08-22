@@ -12,7 +12,7 @@ struct edge{
 int dist[100005];
 int dijkstra(int src, int dest)
 {
-    clr(dist, 0x3F);
+    clr(dist, 0x7F);
     priority_queue<edge> pq;
     pq.push({-1, src, 0});
     dist[src] = 0;

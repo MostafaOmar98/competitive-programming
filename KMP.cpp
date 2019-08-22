@@ -3,16 +3,21 @@
 // remember that this algorithm always works on proper prefixes. it doesn't handle anything that has to do with the string itself or the prefix as a substring
 
 
-/*
- * REVIEW:
- * making vector to represent lengths don't forget sz(pattern) + 1
- */
-string pattern, text; // clear or cin or set every testcase
-vector<int> pi;
+int memKMP[MAX_LEN][26];
+int getNewLen(int len, char c) // Memoized
+{
+    if (!len || (len != pattern.size() && pattern[len] == c))
+        return len + (pattern[len] == c);
+    int &ret = memKMP[len][c - 'a'];
+    if (~ret)
+        return ret;
+    return getNewLen(pi[len - 1], c, id);
+}
+
 
 int getNewLen(int len, char c)
 {
-    while(len && c != pattern[len])
+    while(len && (len != pattern.size() && c != pattern[len]))
         len = pi[len - 1];
     return len + (pattern[len] == c);
 }

@@ -142,7 +142,7 @@ int ans[MAX_N]; // ans[c] means answer for comp c. to get answer for NODE(i) do 
 void topSort()
 {
     clr(ans, -1);
-    for (auto c : compList)
+    for (auto c : compList) // compList contains the component nodes in reverse topological order
     {
         int root = compRoot[c];
         if (ans[c] == -1)

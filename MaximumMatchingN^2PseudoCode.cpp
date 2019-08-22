@@ -1,7 +1,9 @@
 
 int husband[N];
+int vis[N], vid; // vid for maximum matching increment
 bool foundMatch(int MID)
 {
+    vis[MID] = vid;
     for (auto to : adj[MID])
     {
         if (husband[to] == -1)
@@ -16,4 +18,15 @@ bool foundMatch(int MID)
         }
     }
     return 0;
+}
+
+int maxMatch()
+{
+    int ans = 0;
+    for (int i = 0; i < Males; ++i)
+    {
+        ++vid;
+        ans += foundMatch(i);
+    }
+    return ans;
 }
