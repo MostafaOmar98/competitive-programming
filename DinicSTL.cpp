@@ -74,7 +74,7 @@ bool bfs()
     {
         while(size--)
         {
-            int u = q.back();
+            int u = q.front();
             q.pop();
             for (int i = 0; i < sz(adj[u]); ++i)
             {
