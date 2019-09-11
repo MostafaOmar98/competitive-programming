@@ -74,7 +74,7 @@ pair<int, int> handleFraction(int a, int b)
     if (b == 0)
         return {1, 0}; // DO YOU NEED SIGN HERE? In slopes -1, 0 is same as 1, 0
     if (a == 0)
-        return {0, 1}; // Does it need findSign(b)?? is sloe {0, -1} same as slope {0, 1}?
+        return {0, 1}; // Does it need findSign(b)?? is slope {0, -1} same as slope {0, 1}?
     int div = __gcd(abs(a), abs(b));
     a /= div;
     b /= div;

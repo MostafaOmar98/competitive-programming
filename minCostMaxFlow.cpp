@@ -46,7 +46,7 @@ bool bellman()
         int size = sz(q);
         while(size--)
         {
-            int u = q.front();
+            int u = q.back();
             q.pop();
             inQ[u] = 0;
             for (auto edgeIdx : adj[u])
