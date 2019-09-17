@@ -1,43 +1,4 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
-
-typedef long long ll;
-#define rep(i, start, end) for(int i = start; i < end; ++i)
-#define per(i, start, end) for(int i = (int)start-1; i >= end; --i)
-#define sz(x) (int)(x).size()
-#define mp make_pair
-#define pb push_back
-#define F first
-#define S second
-#define all(x) x.begin(), x.end()
-const double PI = 3.14159265358979323846;
-const double eps = (1e-9);
-
-
-
-
-int dcmp(double x, double y)
-{
-    return fabs(x - y) <= eps ? 0 : x < y ? -1 : 1;
-}
-
 const int MOD = 1000000007;
-ll mod(ll x)
-{
-    return (x%MOD + MOD)%MOD;
-}
-
-ll mult(ll x, ll y)
-{
-    return (x%MOD * y%MOD)%MOD;
-}
-
-ll add(ll x, ll y)
-{
-    return (x%MOD + y%MOD)%MOD;
-}
 
 ll power(ll base, int exp)
 {
@@ -156,6 +117,15 @@ void buildInverse()
     }
 }
 
+typedef complex<int> point;
+#define dp(a, b) ((conj(a) * b).real())
+#define cp(a, b) ((conj(a) * b).imag())
+#define angle(a) (atan2(a.imag(), a.real()))
+#define rotate0(a, angle) (a * exp(point(0, angle)))
+#define length(a) (hypot(a.imag(), a.real()))
+#define rotateAr(a, angle, around) (rotate0(((a) - (around)),(angle)) + around)
+#define reflect(a, m) (conj((a)/(m)) * (m))
+#define normalize(a) ((a) / length(a));
 
 int main()
 {

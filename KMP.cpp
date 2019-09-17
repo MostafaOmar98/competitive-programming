@@ -1,7 +1,5 @@
-
 // pi[len - 1] pretty much gets you the next greatest suffix smaller than you that matches
 // remember that this algorithm always works on proper prefixes. it doesn't handle anything that has to do with the string itself or the prefix as a substring
-
 
 int memKMP[MAX_LEN][26];
 int getNewLen(int len, char c) // Memoized

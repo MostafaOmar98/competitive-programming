@@ -1,4 +1,3 @@
-
 int husband[N];
 int vis[N], vid; // vid for maximum matching increment
 bool foundMatch(int MID)

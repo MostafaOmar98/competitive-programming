@@ -1,4 +1,3 @@
-
 int n, Q;
 const int S = 67; // MAX_N/sqrt(MAX_Q)
 struct Query{

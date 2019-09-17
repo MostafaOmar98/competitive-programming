@@ -1,10 +1,10 @@
-
-
 const int MOD[2] = {1000000007, 1000000009};
 const int P[2] = {29, 31};
 const int MAX_N = 100005;
 long long pPow[MAX_N][2], pPowInv[MAX_N][2];
 
+//int MOD[RPL] = {982451653, 982462489, 983898581, 983905843,  983914891, 983923079, 1000000007, 1000000009};
+//int prime[RPL] = {461, 463, 607, 71, 73, 89, 311, 313}; // Make sure this prime is greater than the greatest character ID
 
 ll add(ll x, ll y, ll m)
 {
