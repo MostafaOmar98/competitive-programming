@@ -22,8 +22,13 @@
  *  low, high depends on sign of a, and b. keep g always positive.
  *  very important in inequalities, must be sure of signs of el 7agat ely betdrab feha
  *   otherwise need if condition in case you will flip the inequality
+ *
  *  very important in division ceil, floor the sign.
+ *
  *  handle zeros indepedently.
+ *
+ *  Extended Euclidean gives x, y such that abs(x, y) <= abs(a, b). (Not accurate but
+ *   for overflow purposes)
  */
 
 int sign(long long x)
