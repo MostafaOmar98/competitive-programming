@@ -92,36 +92,41 @@ bool find_any_solution(long long a, long long b, long long c, long long &x0, lon
 
 long long findNumberOfSolutions(long long a, long long b, long long c, long long x1, long long x2, long long y1, long long y2)
 {
-    if (b > a) // b is smaller now
-    {
-        // if you don't wanna do this you gotta add the if condition for a == 0;
-        swap(a, b);
-        swap(x1, y1);
-        swap(x2, y2);
-    }
     if (a == 0 && b == 0)
     {
         if (c == 0)
-            return 1LL * (x2 - x1 + 1) * (y2 - y1 + 1);
+            return (x2 - x1 + 1) * (y2 - y1 + 1);
         else
             return 0;
     }
     else if (b == 0)
     {
         if (c%a != 0)
-            cout << 0 << '\n';
+            return 0;
         else
         {
             long long x = c/a;
             if (x >= x1 && x <= x2)
-                return 1LL * (y2 - y1 + 1);
+                return y2 - y1 + 1;
+            else
+                return 0;
+        }
+    }
+    else if (a == 0)
+    {
+        if (c%b != 0)
+            return 0;
+        else
+        {
+            long long y = c/b;
+            if (y >= y1 && y <= y2)
+                return x2 - x1 + 1;
             else
                 return 0;
         }
     }
     else
     {
-
         long long x0, y0;
         long long g;
         if (!find_any_solution(a, b, c, x0, y0, g))
