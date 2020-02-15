@@ -24,6 +24,9 @@ pair<int, int> table[2 * MAX_N][MAX_K];
 int Log2[2 * MAX_N];
 void preTable()
 {
+    Log2[1] = 0;
+    for (int i = 2; i < 2 * MAX_N; ++i)
+        Log2[i] = Log2[i/2] + 1;
     dfs(0);
     rep(i,0,sz(eulerGraph))
         table[i][0] = {level[eulerGraph[i]], eulerGraph[i]};
