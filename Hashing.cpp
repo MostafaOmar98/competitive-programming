@@ -1,3 +1,6 @@
+/// OLD GO SEE StringHash.cpp
+
+
 const int MOD[2] = {1000000007, 1000000009};
 const int P[2] = {29, 31};
 const int MAX_N = 100005;

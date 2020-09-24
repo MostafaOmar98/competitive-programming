@@ -1,7 +1,8 @@
-const int MAX_N = 1005, MAX_K = 15;
+const int MAX_N = 1005;
+vector<int> adj[MAX_N];
+const int MAX_K = 20; // 2^k > 2 * MAX_N (sz(eulerGraph))
 int level[MAX_N], first[MAX_N];
 vector<int> eulerGraph;
-vector<int> adj[MAX_N];
 
 void dfs(int u, int p = -1, int h = 0)
 {
@@ -50,6 +51,12 @@ int getLCA(int u, int v)
     return getMin(first[u], first[v]);
 }
 
+int getDist(int u, int v)
+{
+    int lca = getLCA(u, v);
+    return level[u] + level[v] - 2 * level[lca];
+}
+
 void clear(int n)
 {
     rep(i,0,n)
@@ -68,9 +75,9 @@ int main()
 #endif
     int tc;
     cin >> tc;
-    Log2[1] = 0;
-    for (int i = 2; i < 2 * MAX_N; ++i)
-        Log2[i] = Log2[i/2] + 1;
+//    Log2[1] = 0;
+//    for (int i = 2; i < 2 * MAX_N; ++i)
+//        Log2[i] = Log2[i/2] + 1;
     for (int tid = 1; tid <= tc; ++tid)
     {
         int n;

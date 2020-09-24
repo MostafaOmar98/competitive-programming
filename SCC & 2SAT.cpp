@@ -106,7 +106,7 @@ bool TwoSAT()
 int ans[MAX_N]; // ans[c] means answer for comp c. to get answer for NODE(i) do ans[comp[NODE(i)]]
 void topSort()
 {
-    clr(ans, -1);
+    memset(ans, -1, compNum * sizeof(ans[0]));
     for (auto c : compList) // compList contains the component nodes in reverse topological order
     {
         int root = compRoot[c];

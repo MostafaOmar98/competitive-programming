@@ -127,6 +127,25 @@ typedef complex<int> point;
 #define reflect(a, m) (conj((a)/(m)) * (m))
 #define normalize(a) ((a) / length(a));
 
+
+
+// hash set
+// if you want to hash string using this hash the pair (i, a[i])
+// ull hash(pii a) {return mix(a.first ^ mix(a.second));}
+
+typedef unsigned long long ull;
+ull TIME = chrono::steady_clock::now().time_since_epoch().count();
+ull mix(ull o)
+{
+    o ^= TIME;
+    o += 0x9e3779b97f4a7c15;
+    o = (o ^ (o >> 30)) * 0xbf58476d1ce4e5b9;
+    o = (o ^ (o >> 27)) * 0x94d049bb133111eb;
+    return o ^ (o >> 31);
+}
+
+
+
 int main()
 {
     mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
