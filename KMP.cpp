@@ -20,14 +20,29 @@ int getNewLen(int len, char c)
     return len + (pattern[len] == c);
 }
 
-void buildPi()
+// OLD bad abstractions
+//void buildPi()
+//{
+//    pi.clear(); // need clear here or fakes?
+//    pi.resize(pattern.size());
+//    pi[0] = 0;
+//    for (int i = 1; i < sz(pattern); ++i)
+//        pi[i] = getNewLen(pi[i - 1], pattern[i]);
+//}
+
+vector<int> kmp(const string &s)
 {
-    pi.clear(); // need clear here or fakes?
-    pi.resize(pattern.size());
-    pi[0] = 0;
-    for (int i = 1; i < sz(pattern); ++i)
-        pi[i] = getNewLen(pi[i - 1], pattern[i]);
+    vector<int> pi(sz(s));
+    for (int i = 1, len = 0; i < sz(s); ++i)
+    {
+        while(len > 0 && s[len] != s[i])
+            len = pi[len - 1];
+        len += (s[i] == s[len]);
+        pi[i] = len;
+    }
+    return pi;
 }
+
 
 // don't forget to call buildPi;
 int match()

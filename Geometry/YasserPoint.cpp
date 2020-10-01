@@ -83,6 +83,12 @@ struct Point {
         return projectOnLine(a, b) * 2 - (*this);
     }
 
+    // NOT TESTED CHECK PLS
+    bool isOnSegment(const P& a, const P& b) const{
+        Point ab = b - a, ac = a - (*this);
+        return isZero(ab.cross(ac)) && dcmp(ac.dot(ac), 0) != GREATER;
+    }
+
     int getQuad() const {
         if (x >= 0) {
             if (y >= 0) return 0;
@@ -119,3 +125,10 @@ template <typename T>
 const Point<T> Point<T>::Origin = Point<T>(0, 0);
 
 using P = Point<int>;
+
+template <typename T>
+bool colinear(Point<T> a, Point<T> b, Point<T> c)
+{
+    Point<T> ab = b - a, ac = c - a;
+    return isZero(ab.cross(ac));
+}
