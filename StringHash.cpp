@@ -71,41 +71,12 @@ void preHash()
     for (int i = 1; i < MAX_N; ++i)
         ppow[i] = ppow[i - 1] * p;
 }
-// if you want to keep hash for all prefixes of string
-vector<Hash> buildHash(const string &s)
-{
-    vector<Hash> h;
-    h.push_back(ppow[0] * s[0]);
-    for (int i = 1; i < sz(s); ++i)
-        h.push_back(h[i - 1] + ppow[i] * s[i]);
-    return h;
-}
-
-// if you want to get hash of a segment NOTE this is multiplied by ppow[l]. divide by it if you want it
-Hash get(const vector<Hash> &h, int l, int r)
-{
-    Hash ret = h[r];
-    if (l)
-        ret = ret - h[l - 1];
-    return ret;
-}
-
-// compare segments
-bool isEqual(const vector<Hash> &h1, int l1, int r1, const vector<Hash> &h2, int l2, int r2)
-{
-    Hash a = get(h1, l1, r1), b = get(h2, l2, r2);
-    return (a * ppow[l2] == b * ppow[l1]);
-}
-
-
-//----------------------------------------------------------
-// putting last few functions in struct
 
 struct AllStringHash{
     vector<Hash> h;
 
     // if you want to keep hash for all prefixes of string
-    void buildHash(const string &s)
+    void init(const string &s)
     {
         h.clear();
         h.push_back(ppow[0] * s[0]);
@@ -122,9 +93,15 @@ struct AllStringHash{
         return ret;
     }
 
+    bool ok(int l, int r) const {
+        return l >= 0 && r < sz(h);
+    }
+
     // compare segments
     bool isEqual(int l1, int r1, const AllStringHash &h2, int l2, int r2)
     {
+        if (r2 - l2 != r1 - l1 || !ok(l1, r1) || !h2.ok(l2, r2))
+            return false;
         Hash a = get(l1, r1), b =  h2.get(l2, r2);
         return (a * ppow[l2] == b * ppow[l1]);
     }
