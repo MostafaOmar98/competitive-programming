@@ -54,6 +54,38 @@ void calcPhi()
                 phi[j] -= phi[j]/i;
 }
 
+// calculates phi[i] i in range [l, r] where l, r are big but r - l is small and sqrt(r) is small.
+const int MAX_N = 1e5 + 5, SQ = 1e7 + 5; // SQ = sqrt(r)
+long long phi[MAX_N], rem[MAX_N]; // phi[i] = Phi(l + i).
+bool isPrime[SQ];
+void segmentedPhi(ll l, ll r)
+{
+    memset(isPrime, true, sizeof(isPrime));
+    isPrime[0] = isPrime[1] = false;
+    for (ll i = l; i <= r; ++i)
+        phi[i - l] = rem[i - l] = i;
+
+    for (int i = 2; i < SQ; ++i)
+    {
+        if (isPrime[i])
+        {
+            for (int j = 2 * i; j < SQ; j += i)
+                isPrime[j] = false;
+
+            ll st = (l + i - 1)/i * i;
+            for (ll j = st; j <= r; j += i)
+            {
+                phi[j - l] -= phi[j - l]/i;
+                while(rem[j - l]%i == 0)
+                    rem[j - l] /= i;
+            }
+        }
+    }
+
+    for (ll i = l ; i <= r; ++i)
+        if (rem[i - l] > 1)
+            phi[i - l] -= phi[i - l]/rem[i - l];
+}
 
 long long sum[MAX_N]; // sum[n] is Summation d * phi[d] for all divisors d of n
 long long LCMSum(int n) // LCMSum(n) is summation of LCM(n, i) for all i <= n

@@ -1,26 +1,56 @@
 const int MOD = 1000000007;
-
-ll power(ll base, int exp)
+// x, y should be modded
+int add(int x, int y)
 {
-    ll ret = 1;
-    while(exp)
-    {
+    x += y;
+    if (x >= MOD)
+        x -= MOD;
+    if (x < 0)
+        x += MOD;
+    return x;
+}
+
+int mult(int x, int y)
+{
+    return (1LL * x * y)%MOD;
+}
+
+int pwr(int base, int exp)
+{
+    int ret = 1;
+    for (; exp; exp >>= 1, base = mult(base, base))
         if (exp&1)
             ret = mult(ret, base);
-        base = mult(base, base);
-        exp /= 2;
-    }
     return ret;
 }
 
-ll modInverse(ll x)
+int modInverse(int x)
 {
-    return power(x, MOD - 2);
+    return pwr(x, MOD - 2); // x % Phi(m) - 1. exists only if x, MOD are coprime
 }
 
-ll div(ll x, ll y)
+int divide(int a, int b)
 {
-    return mult(x, modInverse(y));
+    return mult(a, modInverse(b));
+}
+
+const int MAX_N = 1e6 + 5;
+int fact[MAX_N], factInv[MAX_N];
+void preFact()
+{
+    fact[0] = 1;
+    for (int i = 1; i < MAX_N; ++i)
+        fact[i] = mult(i, fact[i - 1]);
+    factInv[MAX_N - 1] = modInverse(fact[MAX_N - 1]);
+    for (int i = MAX_N - 2; i >= 0; --i)
+        factInv[i] = mult(factInv[i + 1], i + 1);
+}
+
+int C(int n, int k)
+{
+    if (n < k)
+        return 0;
+    return mult(fact[n], mult(factInv[n - k], factInv[k]));
 }
 
 int findSign(int x)
