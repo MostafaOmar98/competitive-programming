@@ -1,0 +1,11 @@
+CRT
+CHT
+Persistent segment tree with lazy propagation
+implicit segment tree with lazy propagation
+Notes
+BigInt mafhoom mesh BigInt we 5alas
+
+
+unexplained WAs:
+Why was the geometry problems WAing?
+The segment trees problem: North america southeast regional 2019 Div1 B (wolf problem)
