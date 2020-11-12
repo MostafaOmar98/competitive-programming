@@ -79,6 +79,21 @@ struct Point {
         return a + ab * r / d;
     }
 
+    // counter clockwise angle from this to other
+    ld getAngleTo(Point other) const{
+        ld ret = atan2(cross(other), dot(other));
+        if (ret < 0)
+            ret += 2 * PI;
+        return ret;
+    }
+
+    // minimum angle between this and other
+    ld getMinimumAngle(Point other) const{
+        ld ret = getAngleTo(other);
+        ret = min(ret, 2 * PI - ret);
+        return ret;
+    }
+
     P reflectAroundLine(const P& a, const P& b) const {
         return projectOnLine(a, b) * 2 - (*this);
     }
