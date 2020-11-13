@@ -6,7 +6,7 @@
  *  at first
  * Careful overflow
  * Can generate more solutions mesh far2a 3and meen el + we 3and meen el -
- * x = x0 - k * a/g
+ * x = x0 - k * b/g
  * y = y0 + k * a/g
  */
 
@@ -222,6 +222,8 @@ long long mulmod(long long a, long long b, long long c) {
     a %= c;
     b %= c;
     long long res = 0;
+    // avoiding overflow in a.b
+    // can swap this part with tfg's mul in CRT file
     while (b > 0) {
         if (b & 1) {
             res = (res + a) % c;

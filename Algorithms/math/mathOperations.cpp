@@ -177,8 +177,10 @@ ull mix(ull o)
     return o ^ (o >> 31);
 }
 
-
-
+ull hash(int idx, ull o)
+{
+    return mix(idx ^ mix(o));
+}
 int main()
 {
     mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());

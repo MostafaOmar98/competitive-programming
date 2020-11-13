@@ -1,0 +1,82 @@
+Aliens Trick:
+1- Table DP is much faster
+
+1- Sign of lamda, are you treating it as penalty or as a regular value?
+2- Min/Max value of lamda. Max penalty should be too big that you can't take any value and minimum penalty should allow you to take all values
+2.1- For instance if you gain X from one operation your max penalty should match that. Only need to match one operation's gain not whole array's gain (See 102058I for when this fails)
+3- Sometimes useful to think about it as f(k) = a * k^2 + c * k, and other times useful to think about it as penalty increasing or decreasing.
+4- Increase penalty can mean decrease c (Higher magnitude negative penalty)
+5- For integral lamda search, you need BOTH ans(k, lamda) and k to be integer
+6- The sufficient condition for aliens trick to work is F(k) - F(k - 1) <= F(k + 1) - F(k) for minimas, and >= for maximas"
+
+1- Convex/Concave Functions when X axis is the removed parameter
+2- See where the optimal point moves when you increase/decrease penalty
+3- If you need exactly k, use the formula: ans(lamda) - k * lamda
+4- If you need less than or equal to k, maximize between formula in 3 and ans(lamda) - cnt(lamda) * lamda (Must do this if function is not strictly concave)
+5- reconstruction is impossible if function is not strictly concave.
+
+
+When using one operation somewhere blocks using the operation in other places. Max/Min penalty must match total gain not just one operation's gain.
+The actual value from taking this element is its value (Can be negative) - what we could have gained from the other blocked places (Can be positive), so we need to match what we could have gained if we did not pick this. In cases it doesn't block anything, we just match its value.
+Example: independent: Pick -> (-100), No Pick -> 0
+                dependent: Pick -> (-100), No Pick -> 0 (From not taking -100) + Positive gains from other blocked operations (We need to match this positive gain).
+-------------------
+"-Factorize all numbers in range [L, R] where R - L + 1 is small but L, R are big: Use sieve on range [1, sqrt(R)] and for each prime p, find first multiple of p >= L, and then iterate over multiples in the range and add p as a divisor of these multiples. (This will run around nlogn or nloglogn if n is the size of range).
+-The number of distinct prime factors between [L, R] is not so small but no so big, consider it if you have other optimizations (Tested and found it around size_of_range).
+
+-Even if the optimal answer will fit in int, careful that calculating an unoptimal answer may overflow.
+--------------------------------
+-Getting half of the binomial expansion (Only odd indices or only even indices) by using (a+b)^n and (a-b)^n and adding both of them
+---------------------------------
+-Answer geting number of elements in range [l, r] between [a, b]
+Online: Merge sort tree.
+Offline: add all queries to query array where struct query is {l, r, val, sign} and you will answer for each query get number of elements <= val.
+add to query array {l, r, a - 1, -1} and {l, r, b, 1}.
+make array B = {value, idx} and keep it sorted over value.
+Traverse queries sorted over val.
+Now for each query, for all elements in B where value <= query.val. Add 1 to its index in BIT. then simply query the [l, r] range
+
+-Query count how many <= in static array. You don't need to compress all queries. Just make a sorted version of the static array then since you care only about <= query [stval, enval] will be query [greater_than_or_eq(stval), less_than_or_eq(enval)]. you can get those using lowerbound on the sorted version"
+-------------------
+Fact 1: for any N, k. either k <= sqrt(n) or N/k <= sqrt(n).
+Fact 2 from 1: for (i) from 1 to n. size of the set of integers floor(N/i) is <= 2 * sqrt(n).
+comes from: if i <= sqrt(n) then each number will map to 1 number >= sqrt(n)
+else if i > sqrt(n) then all these numbers will map to a number from 1 to sqrt(n) so in total the size will be 2 * sqrt(n)
+
+Fact 3: intermediate overflow can be ignored if ur answer will fit. For example if you're dealing with unsigned long longs, and you're trying to compute x such that x will fit in long long. so x == x%2^64. so you can compute right hand side, get all computations %2^64. overflow behaves like this. Make sure there is no division.
+Note: Make sure you're modding correctly!! ya3ny work with unsigned data types only no signed 3ashan yeb2a in range [0, ULLONG_MAX], no division, handling negatives, and so on."
+---------------------------------------
+For a vector (Vx, Vy) or (angle, magnitude). if you know you're at (x1, y1) and you moved to (x2, y2) and you know x2 but want to find out y2.
+Always shift to start at origin point then shift back. Much easier
+
+1- you know dx, you have/can compute angle. dy is dx * tan(angle).
+2- (Easier method). If you imagine there is a time dimension such that you move +(Vx, Vy) per time unit. Treat each component seperately as we learned. It took you dx/Vx time units to reach x2. dy = t * Vy. This method is very useful if you don't wanna go to (angle, magnitude) form."
+-Careful signs we keda, don't assume stuff is positive
+--------------------------------------------
+If you play the game on a reduced state so that each position P belong to one reduced Pdash. To prove that winning/losing in dash family is equivelant to winning/losing in original state family:
+1- Prove that if you are in state P such that Pdash is losing, then any move u can make can be countered by a move that returns you to a losing Dash family. This family can be either the same Pdash or new Rdash. The counter move can be inspected through:
+1.1- counter move in original family directly by inspecting the move in the original family.
+1.2- If 1.1 is hard, try to see that Pdash is losing in dash family, then Qdash is winning in dash family. If the move in Qdash can be done in Q, and Q will result in R and Qdash will result in Rdash, then the player is countered to a losing Dash family.
+through 1.1, 1.2. for every move the player in losing dash family makes, you can always make a counter move that puts him in a state that is proven to always have a counter move so you won't make the last move. "
+------------------------
+-Tree center is the node with minimum eccentricity.
+-Tree has one or two centers. This can be proved by removing leaf nodes and proving that centers in the remaining tree are the same centers of the tree and base case is 1 or two nodes
+-Tree diameter must pass through center
+-If you want to find out all tree diameter nodes, Find the nodes on distance D/2 from the tree center (Ceil and floor D/2 in case of 2 centers). Note that this does not mean you can match any two of them to form a diameter, but any of them can act as a taraf fel tree diameter
+-Tree Isomorphism, hash each subtree to unique ID then each node will only do O(deglog(deg)) work. This changes nothing in the normal algorithm, just hashes the string values"
+----------------
+A string with s[i] = s[(i + k)%n] for all i, is a periodic string with period = gcd(n, k).
+All the cycles are equal in this string (Cycle means the characters that have to be equal to each other)"
+-------------------
+-Change of basis:
+This is when you want to keep the grid as it is without rotating it at all, but make the coordinates written in terms of some 2 other independent vectors.
+What to remember: Translating from our grid to her grid is equivelant to translating from her language to our language. The inverse transformation is the inverse of that too.
+transformation in her language is not as easy, first translate to our language then do the transformation then go back to her language"
+"-Transforming our grid and/or translating from her language to our language. Regular Matrix Transformation using the new basis vectors.
+
+-Returning back to our grid and/or translating from our language to her language. Inverse of Regular Matrix of the new basis"
+------------
+-Most important thing to abstract: When you are feeding string to the FSM. when you're at index (i). You have collective information about all strings in the dictionary that appear as a substring that ends at (i) in the text
+----------
+a(x, y) = x + y, b(x, y) = x - y.
+Manhattan Distance(x1, y1, x2, y2) = max(abs(a1 - a2), abs(b1 - b2))
