@@ -36,6 +36,7 @@ struct VectorSpace{
 // vector space with bitsets and getting indices of contributing vectors
 // index[i] is a bitset with 1's at the indices of the vectors contributing to this basis vector
 // can be changed from bitset to any other datastructure. make sure to cancel out indices that occur even number of times
+// can combine basis[i] and index[i] into one bitset with double the size. Any set bit after MAX_N is a contribution index bit
 const int MAX_N = 501;
 struct VectorSpace{
     bitset<MAX_N> basis[MAX_N];
