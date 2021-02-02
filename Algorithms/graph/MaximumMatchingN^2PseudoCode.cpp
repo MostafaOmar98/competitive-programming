@@ -39,7 +39,7 @@ vector<int> adj[MAX_N]; // adj[male] -> female
 
 int husband[MAX_N]; // husband[female] -> male
 int vis[MAX_N], vid; // vis[male] -> vid;
-
+int wife[MAX_N];
 int foundMatch(int male)
 {
     if (vis[male] == vid)
@@ -47,9 +47,20 @@ int foundMatch(int male)
     vis[male] = vid;
     for (int v : adj[male])
     {
-        if (husband[v] == -1 || foundMatch(husband[v]))
+        if (husband[v] == -1)
         {
             husband[v] = male;
+            wife[male] = v;
+            return 1;
+        }
+    }
+
+    for (int v : adj[male])
+    {
+        if (foundMatch(husband[v]))
+        {
+            husband[v] = male;
+            wife[male] = v;
             return 1;
         }
     }
@@ -63,6 +74,9 @@ int maximumMatching()
     vector<int> maleIDs(nMales);
     iota(maleIDs.begin(), maleIDs.end(), 0);
     shuffle(maleIDs.begin(), maleIDs.end(), rng);
+
+    for (int male : maleIDs)
+        shuffle(adj[male].begin(), adj[male].end(), rng);
 
     int ans = 0;
     for (int male : maleIDs)
