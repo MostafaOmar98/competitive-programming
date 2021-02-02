@@ -1,3 +1,8 @@
+//In short:
+//1- Define set of all elements in interest
+//2- Define the unique operations that if applied on an element of the set, it's gonna produce a symmetrical element
+//3- Calculate "total" for each unique operation g, the number of elements in the set that will not be changed when it is applied on. g(x) = x
+//4- Answer is total/numberOfOperations
 //# Burnside lemma intuition
 //
 //
