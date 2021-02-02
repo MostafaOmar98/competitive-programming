@@ -31,7 +31,7 @@ int maxMatch()
 }
 
 
-// EXAMPLE -- TLED on library checker but passed all of rest testcases
+// EXAMPLE -- FAST NOW
 
 int nMales, nFemales;
 const int MAX_N = 1e5 + 5;
@@ -39,7 +39,7 @@ vector<int> adj[MAX_N]; // adj[male] -> female
 
 int husband[MAX_N]; // husband[female] -> male
 int vis[MAX_N], vid; // vis[male] -> vid;
-int wife[MAX_N];
+int wife[MAX_N]; // wife[male] -> female
 int foundMatch(int male)
 {
     if (vis[male] == vid)
@@ -71,6 +71,7 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 int maximumMatching()
 {
     memset(husband, -1, nFemales * sizeof(husband[0]));
+    memset(wife, -1, nMales * sizeof(wife[0]));
     vector<int> maleIDs(nMales);
     iota(maleIDs.begin(), maleIDs.end(), 0);
     shuffle(maleIDs.begin(), maleIDs.end(), rng);
@@ -78,12 +79,18 @@ int maximumMatching()
     for (int male : maleIDs)
         shuffle(adj[male].begin(), adj[male].end(), rng);
 
-    int ans = 0;
-    for (int male : maleIDs)
+    int ok = 1;
+    while(ok--)
     {
         ++vid;
-        ans += foundMatch(male);
+        for (int male : maleIDs)
+            if (wife[male] == -1)
+                ok |= foundMatch(male);
     }
+
+    int ans = 0;
+    for (int male : maleIDs)
+        ans += wife[male] != -1;
     return ans;
 }
 

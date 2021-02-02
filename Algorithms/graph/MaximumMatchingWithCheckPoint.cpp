@@ -120,12 +120,18 @@ int maximumMatching()
     iota(maleIDs.begin(), maleIDs.end(), 0);
     shuffle(maleIDs.begin(), maleIDs.end(), rng);
 
-    int ans = 0;
-    for (int male : maleIDs)
+    int ok = 1;
+    while(ok--)
     {
         ++vid;
-        ans += foundMatch(male);
+        for (int male : maleIDs)
+            if (wife[male] == -1)
+                ok |= foundMatch(male);
     }
+
+    int ans = 0;
+    for (int male : maleIDs)
+        ans += wife[male] != -1;
 
     // Regular algo finished
     // start adding extras
@@ -144,29 +150,27 @@ int maximumMatching()
     {
         int tempAns = ans;
         // --------------------- WAY 1
-        adj[nMales - 2] = adj[i];
-        adj[nMales - 1] = adj[i];
-
-        // In this point we found maximum matching for males in range [0, nMales - 2)
-        // Now we start calling on nMales-2 and nMales-1 as if by chance they were at the end of the maleIDs vector.
-
-        ++vid;
-        ans += foundMatch(nMales - 2);
-        ++vid;
-        ans += foundMatch(nMales - 1);
-        // undoing the effect of last 2 nodes so that the arbitrary maximum matching stays for males in range [0, nMales - 2)
-        if (wife[nMales - 1] != -1)
-            husband[wife[nMales - 1]] = -1;
-        if (wife[nMales - 2] != -1)
-            husband[wife[nMales - 2]] = -1;
+//        adj[nMales - 2] = adj[i];
+//        adj[nMales - 1] = adj[i];
+//
+//        // In this point we found maximum matching for males in range [0, nMales - 2)
+//        // Now we start calling on nMales-2 and nMales-1 as if by chance they were at the end of the maleIDs vector.
+//
+//        ++vid;
+//        ans += foundMatch(nMales - 2);
+//        ++vid;
+//        ans += foundMatch(nMales - 1);
+//        // undoing the effect of last 2 nodes so that the arbitrary maximum matching stays for males in range [0, nMales - 2)
+//        if (wife[nMales - 1] != -1)
+//            husband[wife[nMales - 1]] = -1;
+//        if (wife[nMales - 2] != -1)
+//            husband[wife[nMales - 2]] = -1;
 
 
         // ------------ WAY 2
 
         // another way to do this instead of copying adj is to do
         // ans += foundMatch(i) twice, this will add new match from some female to i if possible
-        // since you're always calling foundMatch(i), i will always be visited, so the i will never detach from his
-        // initial wife
         // but you will have to copy the checkpoint husband state every time in the loop to undo the wives attached to i
 //        memcpy(tempHusband, husband, nFemales * sizeof(husband[0]));
 //        ++vid;
@@ -178,19 +182,19 @@ int maximumMatching()
 
         // ------------ WAY 3
         // Since any arbitrary match is okay, you just need to undo the new wives attached to i
-//        vector<int> newWives;
-//        ++vid;
-//        ans += foundMatch(i);
-//        newWives.push_back(wife[i]);
-//        ++vid;
-//        ans += foundMatch(i);
-//        newWives.push_back(wife[i]);
-//
-//        if (ans != tempAns) // check if got a new wife
-//        {
-//            for (int w : newWives)
-//                husband[w] = -1;
-//        }
+        vector<int> newWives;
+        ++vid;
+        ans += foundMatch(i);
+        newWives.push_back(wife[i]);
+        ++vid;
+        ans += foundMatch(i);
+        newWives.push_back(wife[i]);
+
+        if (ans != tempAns)
+        {
+            for (int w : newWives)
+                husband[w] = -1;
+        }
 
 
         best = max(best, ans);
@@ -201,7 +205,6 @@ int maximumMatching()
     return best;
 }
 
-// https://codeforces.com/gym/101873/problem/F
 int main()
 {
     ios_base::sync_with_stdio(false);
