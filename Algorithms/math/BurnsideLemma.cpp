@@ -1,5 +1,5 @@
 //# Burnside lemma intuition
-//---
+//
 //
 //A lemma that helps with counting stuff.
 //
