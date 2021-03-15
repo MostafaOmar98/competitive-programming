@@ -40,6 +40,13 @@ T doublePolygonArea(const vector<Point<T> > &v)
     return abs(ret);
 }
 // https://codeforces.com/gym/101873/problem/G
+
+// for a polygon with integer coordinates for vertices:
+// A = i + b/2 - 1
+// A := Area of polygon
+// i := number of integer coordinates points in the interior of the polygon
+// b := number of integer coordinates points on the boundary of the polygon
+
 int main()
 {
     ios_base::sync_with_stdio(false);
