@@ -147,3 +147,17 @@ bool colinear(Point<T> a, Point<T> b, Point<T> c)
     Point<T> ab = b - a, ac = c - a;
     return isZero(ab.cross(ac));
 }
+
+template <typename T>
+P<long double> pointIntersection(const P<T> &A, const P<T> &B, const P<T> &C, const P<T> &D)
+{
+    Point CA = A - C, AB = B - A, CD = D - C;
+    T c1 = CA.cross(AB), c2 = CD.cross(AB);
+    if (c2 == 0) // lines are parallel, 0 or infinity solutions;
+        return {1.0/0, 1.0/0};
+    long double s = 1.0 * c1 / c2;
+    P<long double> ret = {1.0 * C.x, 1.0 * C.y};
+    ret.x += s * CD.x;
+    ret.y += s * CD.y;
+    return ret;
+}
